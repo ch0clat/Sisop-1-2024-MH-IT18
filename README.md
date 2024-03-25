@@ -69,8 +69,8 @@ PROCINFO: sebuah array dari awk yang special bult untuk membuat descending order
 echo Date Purchase + Quantity of Items dari Adriaens
 grep 'Adriaens' Sandbox.csv | awk -F ',' '{print $2, $6, $17}' 
 ```
-grep: 
-'{print $2, $6, $17}' 
+grep: untuk search sebuah pattern dalam file teks yang telah dibuat.
+'{print $2, $6, $17}': Mengeprint nama, date of purchase, serta quantity dari Adriaens. 
 
 
 
