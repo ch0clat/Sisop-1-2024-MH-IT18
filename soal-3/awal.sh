@@ -1,4 +1,4 @@
-\#!/bin/bash
+#!/bin/bash
 set -e
 wget 'https://drive.google.com/uc?export=download&id=1oGHdTf4_76_RacfmQIV4i7os4sGwa9vN' -O genshin.zip
 unzip genshin.zip
