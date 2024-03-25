@@ -72,18 +72,6 @@ grep 'Adriaens' Sandbox.csv | awk -F ',' '{print $2, $6, $17}'
 grep: untuk search sebuah pattern dalam file teks yang telah dibuat.
 '{print $2, $6, $17}': Mengeprint nama, date of purchase, serta quantity dari Adriaens. 
 
-
-
-
-
-<!-- Contoh per soal -->
-## Soal 2
-
-   ```sh
-   git clone https://github.com/your_username_/Project-Name.git
-   ```
-Jelasin bla" balaaa
-
 ## Soal 3
 
 ### Awal.sh
