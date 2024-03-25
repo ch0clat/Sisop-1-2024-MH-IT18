@@ -143,10 +143,4 @@ Command cd merubah directory kembali ke parent directory. setalah itu membaca li
    ```
 Di dalam case pertama akan cek apakah text yang terdekripsi mengandung "https" dan jika mengandung "https" akan mendownload file dengan gdown, menyimpan hasil dekripsi ke dalam decrypted_url.txt, mengoutput [date] [found] [directory] ke dalam image.log dan menghentikan loop. jika tidak ada akan [date] [not found] [directory] dan remove temp.txt dan berhenti untuk 1 detik.
 
-<!-- Contoh per soal -->
-## Soal 4
 
-   ```sh
-   git clone https://github.com/your_username_/Project-Name.git
-   ```
-Jelasin bla" balaaa
