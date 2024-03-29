@@ -144,3 +144,39 @@ Command cd merubah directory kembali ke parent directory. setalah itu membaca li
 Di dalam case pertama akan cek apakah text yang terdekripsi mengandung "https" dan jika mengandung "https" akan mendownload file dengan gdown, menyimpan hasil dekripsi ke dalam decrypted_url.txt, mengoutput [date] [found] [directory] ke dalam image.log dan menghentikan loop. jika tidak ada akan [date] [not found] [directory] dan remove temp.txt dan berhenti untuk 1 detik.
 
 
+## Soal 4
+### minute_log.sh
+
+```sh
+#!/bin/bash
+#* * * * * untuk mengatur running setiap menit dilanjut dengan directory script
+#* * * * * /home/ch0clat/sisoptest/minute_log.sh
+set -e
+
+memory_data=$(free -m|awk 'NR==2 {print $2,$3,$4,$5,$6}' |tr ' ' ',' )
+```
+Di sini saya menggunakan variable memory_data untuk menyimpan semua output dari command `free -m` yang berada pada column 2 lalu saya menggunakan `tr` untuk mengganti spaces menjadi ','.
+
+```sh
+swap_data=$(free -m|awk 'NR==3 {print $2,$3,$4}' |tr ' ' ',' )
+```
+Di sini saya menggunakan variable swap_data untuk menyimpan semua output dari command `free -m` yang berada pada column 3 lalu saya menggunakan `tr` untuk mengganti spaces menjadi ','.
+
+```sh
+directory_data=$(du -sh ~/. |awk '{print $2,$1}' |tr ' ' ',')
+```
+lalu saya menyimpan data dari command `du -sh ~/.` pada variable directory_data dan menggunakan `tr` untuk mengubah format output.
+
+```sh
+time_stamp=$(date "+%Y%m%d%H%M%S")
+```
+saya menggunakan command date untuk menyimpan tanggal dan waktu saat script di jalankan ke dalam variable time_stamp.
+
+```sh
+echo "mem_total,mem_used,mem_free,mem_shared,mem_buff,mem_available,swap_total,swap_used,swap_free,path,path_size" > ~/log/"metrics_$time_stamp.log"
+echo "$memory_data,$swap_data,$directory_data" >> ~/log/"metrics_$time_stamp.log"
+chmod 400 ~/log/"metrics_$time_stamp".log 
+```
+lalu disini adalah output dari semua variable yang telah dibuat dan juga menggunakan `time_stamp` sebagai nama file log yang akan di simpan di directory `~/log`. pada akhir penjalanan script command `chmod` akan mengubah permision file menjadi kode 400 yang akan mengubah akses permision file log hanya bisa di akses oleh owner.
+
+soal 4 hanya dapat kami kerjakan sampai minute_log.sh karena kendala dalam penghitungan max, min dan avg dari setiap variable yang tersimpan pada file log yang sudah teroutput pada jam tersebut.
