@@ -217,8 +217,7 @@ Di atas kita melakukan ls dilanjutkan dengan while loop yang akan berjalan sampa
 Hasil awal.sh :
 
 ![image](https://github.com/ch0clat/Sisop-1-2024-MH-IT18/assets/128571877/f39515cf-0e52-4db0-962c-a4868940f320)
-![image](https://github.com/ch0clat/Sisop-1-2024-MH-IT18/assets/128571877/c1b74495-0452-47ad-a051-110ee35ea9d8)
-
+![image](https://github.com/ch0clat/Sisop-1-2024-MH-IT18/assets/128571877/004c81d0-cfbb-43c1-a46f-8644daa453ee)
 
    ```sh
    cd ..
