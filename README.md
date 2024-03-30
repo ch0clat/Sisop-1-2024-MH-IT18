@@ -216,8 +216,8 @@ Di atas kita melakukan ls dilanjutkan dengan while loop yang akan berjalan sampa
 
 Hasil awal.sh :
 
-![alt text](image-1.png)
-![alt text](image-2.png)
+![image](https://github.com/ch0clat/Sisop-1-2024-MH-IT18/assets/128571877/f39515cf-0e52-4db0-962c-a4868940f320)
+![image](https://github.com/ch0clat/Sisop-1-2024-MH-IT18/assets/128571877/004c81d0-cfbb-43c1-a46f-8644daa453ee)
 
    ```sh
    cd ..
@@ -261,11 +261,12 @@ Di dalam case pertama akan cek apakah text yang terdekripsi mengandung "https" d
 
 Hasil search.sh :
 
-![alt text](image-4.png)
+![image](https://github.com/ch0clat/Sisop-1-2024-MH-IT18/assets/128571877/a85853af-200e-4840-aacb-6f69e86c0a84)
 
 Isi dari Image.log dan hasil dekripsi yang berisi URL:
 
-![alt text](image-7.png)
+![image](https://github.com/ch0clat/Sisop-1-2024-MH-IT18/assets/128571877/0b6e90af-003b-4632-ba3f-187a781ce1b9)
+
 
 ## Soal 4
 ### minute_log.sh
@@ -304,6 +305,83 @@ lalu disini adalah output dari semua variable yang telah dibuat dan juga menggun
 
 Hasil minute_log.sh yang di simpan pada file log di directory `~/log/` :
 
-![alt text](image-8.png)
+![image](https://github.com/ch0clat/Sisop-1-2024-MH-IT18/assets/128571877/a63ddf13-e409-4dda-9d8c-123a31014ca4)
+
 
 soal 4 hanya dapat kami kerjakan sampai minute_log.sh karena kendala dalam penghitungan max, min dan avg dari setiap variable yang tersimpan pada file log yang sudah teroutput pada jam tersebut.
+### Kendala dan revisi soal 4
+Pada soal 4 sempat mengelami kendala saat penyelesaian `aggregate_minute_to_hourly.sh` dalam pengambilan data maximum, minimum,dan avarage dari setiap data. 
+
+Setelah melakukan revisi `aggregate_minute_to_hourly.sh` hasil maximum, minimum, dan avarage dapat berhasil ditemukan. 
+
+### aggregate_minute_to_hourly.sh
+```sh
+#0 * * * * /home/kali/sisoptest/aggregate_minute_to_hourly.sh
+```
+Konfigurasi crontab ini akan membuat script di jalan kan setiap menit 0 pada setiap jam.
+
+```sh
+cd ~/log
+
+time_hour=$(date -d '1 hour ago' "+%Y%m%d%H")
+
+ls metrics_"$time_hour"*.log | while read logfile; do awk 'NR==2' "$logfile"; done > temp.log
+```
+Step pertama yang di lakukan oleh script adalah pindah directory menuju `~/log` dengan command `cd`. lalu menyimpan tanggal dan jam. tanggal dan jam yang di simpan pada variable `time_hour` adalah waktu 1 jam yang lalu dengan menggunakan command `date -d '1 hour ago' "+%Y%m%d%H"`. Selanjutanya script akan menyatukan semua file `.log` yang memiliki jam yang seusai dengan `time_hour` ke dalam `temp.log`. dengan menggunakan `awk 'NR==2'` data yang terambil hanyalah data yang ada di line ke 2 log file.
+```sh
+max1=$(awk -F ','  '{print $1}' temp.log | sort -n | tail -n 1)
+max2=$(awk -F ','  '{print $2}' temp.log | sort -n | tail -n 1)
+max3=$(awk -F ','  '{print $3}' temp.log | sort -n | tail -n 1)
+max4=$(awk -F ','  '{print $4}' temp.log | sort -n | tail -n 1)
+max5=$(awk -F ','  '{print $5}' temp.log | sort -n | tail -n 1)
+max6=$(awk -F ','  '{print $6}' temp.log | sort -n | tail -n 1)
+max7=$(awk -F ','  '{print $7}' temp.log | sort -n | tail -n 1)
+max8=$(awk -F ','  '{print $8}' temp.log | sort -n | tail -n 1)
+max10=$(awk -F ','  '{print $10}' temp.log | sort -n | tail -n 1)
+maximum=$(echo "maximum,$max1,$max2,$max3,$max4,$max5,$max6,$max7,$max8,$max10")
+```
+Variabel `max1 max2 ...` digunakan untuk menyimpan nilai maximum dari setiap data. `awk -F ','` akan membaca semua data `temp.log` yang di pisahkan oleh field separator `','` . `sort n` akan mengurutkan data dan `tail -n 1` akan mengambil baris terakhir dari sort yang merupakan nilai maximum dari data tersebut. kemudian semua variabel `max` disatukan menjadi satu variabel `maximum`
+```sh
+min1=$(awk -F ','  '{print $1}' temp.log | sort -n | head -n 1)
+min2=$(awk -F ','  '{print $2}' temp.log | sort -n | head -n 1)
+min3=$(awk -F ','  '{print $3}' temp.log | sort -n | head -n 1)
+min4=$(awk -F ','  '{print $4}' temp.log | sort -n | head -n 1)
+min5=$(awk -F ','  '{print $5}' temp.log | sort -n | head -n 1)
+min6=$(awk -F ','  '{print $6}' temp.log | sort -n | head -n 1)
+min7=$(awk -F ','  '{print $7}' temp.log | sort -n | head -n 1)
+min8=$(awk -F ','  '{print $8}' temp.log | sort -n | head -n 1)
+min10=$(awk -F ','  '{print $10}' temp.log | sort -n | head -n 1)
+minimum=$(echo "minimum,$min1,$min2,$min3,$min4,$min5,$min6,$min7,$min8,$min10")
+```
+Pada pencarian nilai minimum menggunakan pengerjaan yang hampir sama dengan pencarian nilai maximum hanya berbeda pada `head -n 1`. `head -n 1` akan mengambil nilai paling atas dari sort yang merupakan nilai minimum dari data tersebut.
+
+```sh
+avg1=$(awk -F ',' '{sum += $1; count++} END {print sum/count}' temp.log)
+avg2=$(awk -F ',' '{sum += $2; count++} END {print sum/count}' temp.log)
+avg3=$(awk -F ',' '{sum += $3; count++} END {print sum/count}' temp.log)
+avg4=$(awk -F ',' '{sum += $4; count++} END {print sum/count}' temp.log)
+avg5=$(awk -F ',' '{sum += $5; count++} END {print sum/count}' temp.log)
+avg6=$(awk -F ',' '{sum += $6; count++} END {print sum/count}' temp.log)
+avg7=$(awk -F ',' '{sum += $7; count++} END {print sum/count}' temp.log)
+avg8=$(awk -F ',' '{sum += $8; count++} END {print sum/count}' temp.log)
+avg10=$(awk -F ',' '{sum += $10; count++} END {print sum/count}' temp.log)
+average=$(echo "average,$avg1,$avg2,$avg3,$avg5,$avg6,$avg7,$avg8,$avg10")
+```
+Pada pencarian nilai average awk akan menambahkan semua data menjadi satu variabel `sum` dengan `sum += $1` lalu setiap terjadi pengulangan penambahan count akan bertambah dengan `count++`. Setelah penambahan selesai berjalan `print sum/count` akan digunakan untuk menghitung nilai average.
+
+```sh
+echo "type,mem_total,mem_used,mem_free,mem_shared,mem_buff,mem_available,swap_total,swap_used,swap_free,path,path_size" > metrics_agg_"$time_hour".log
+echo "$minimum" >> metrics_agg_"$time_hour".log
+echo "$maximum" >> metrics_agg_"$time_hour".log
+echo "$average" >> metrics_agg_"$time_hour".log
+
+rm temp.log
+
+chmod 400 metrics_agg_"$time_hour".log
+```
+Variable `minimum` `maximum` dan `average` di output ke file `metrics_agg_"$time_hour".log`. kemudian temp.log di hapus. Lalu `chmod 400` akan mengubah write and read permision hanya bisa di akses oleh owner
+
+Hasil aggregate_minute_to_hourly_log.sh :
+
+![image](https://github.com/ch0clat/Sisop-1-2024-MH-IT18/assets/128571877/5f1e2b57-643a-4a8c-aea8-0cdd627f9ffd)
+
