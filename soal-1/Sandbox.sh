@@ -56,7 +56,11 @@ awk -F ',' 'NR > 1 {profits[$14] += $20} END {PROCINFO["sorted_in"] = "@val_num_
 # delete top_categories[min_category]: Line ini mengdelete category dengan lowest profit (min_category) dari top_categories.
 # for (category in top_categories) { print category, profits[category] }: loop ini dirun melalui setiap category di top_categories dan mengeprint setiap category dengan profitnya.
 
-echo NYARI ADRIAENS + Date Purchase + Quantity of Items - No 1D
+echo MENCARI ADRIAENS + Date Purchase + Quantity of Items - No 1D
+awk '/Adriaens/ {print}' Sandbox.csv
+
+#'/Adriaens/` : Ini yang dicari menggunakan script awk tadi
+#`{print}'` : Mengeprint hasil
 grep 'Adriaens' Sandbox.csv | awk -F ',' '{print $2, $6, $17}' 
 
 # grep: Mendapat text and strings yang tadi dicari (disini Adriaens), baru mendapat date purchase serta quantity of items.
