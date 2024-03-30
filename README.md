@@ -242,6 +242,14 @@ echo "[$(date +'%d/%m/%y %H:%M:%S')] [REGISTER SUCCESS] User [$username] registe
 ```
 Setelah itu, data email, username, pertanyaan keamanan, jawaban, password terenkripsi, dan status admin dikirim ke file users.txt di direktori users/. Terakhir, akan keluar pesan "Registrasi berhasil!" dan mencatat log registrasi sukses ke file auth.log di direktori users/.
 
+Hasil register.sh :
+
+![image](https://github.com/Karisuta7/Sisop-1-2024-MH-IT18/assets/128571877/06521801-fae1-4aaf-bd65-1769082a9ecc)
+
+
+## Catatan soal 2
+- Saat menjalankan `register.sh` terlihat bahwa register account sudah bisa dilakukan, namun saat melakukan login pada user tersebut masih mengalami kendala dalam mengisi password dimana password yang benar masih tidak bisa melakukan login.
+
 ## Soal 3
 
 ### Awal.sh
