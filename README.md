@@ -216,8 +216,9 @@ Di atas kita melakukan ls dilanjutkan dengan while loop yang akan berjalan sampa
 
 Hasil awal.sh :
 
-![alt text](image-1.png)
-![alt text](image-2.png)
+![image](https://github.com/ch0clat/Sisop-1-2024-MH-IT18/assets/128571877/f39515cf-0e52-4db0-962c-a4868940f320)
+![image](https://github.com/ch0clat/Sisop-1-2024-MH-IT18/assets/128571877/c1b74495-0452-47ad-a051-110ee35ea9d8)
+
 
    ```sh
    cd ..
@@ -261,11 +262,12 @@ Di dalam case pertama akan cek apakah text yang terdekripsi mengandung "https" d
 
 Hasil search.sh :
 
-![alt text](image-4.png)
+![image](https://github.com/ch0clat/Sisop-1-2024-MH-IT18/assets/128571877/a85853af-200e-4840-aacb-6f69e86c0a84)
 
 Isi dari Image.log dan hasil dekripsi yang berisi URL:
 
-![alt text](image-7.png)
+![image](https://github.com/ch0clat/Sisop-1-2024-MH-IT18/assets/128571877/0b6e90af-003b-4632-ba3f-187a781ce1b9)
+
 
 ## Soal 4
 ### minute_log.sh
@@ -304,7 +306,8 @@ lalu disini adalah output dari semua variable yang telah dibuat dan juga menggun
 
 Hasil minute_log.sh yang di simpan pada file log di directory `~/log/` :
 
-![alt text](image-8.png)
+![image](https://github.com/ch0clat/Sisop-1-2024-MH-IT18/assets/128571877/a63ddf13-e409-4dda-9d8c-123a31014ca4)
+
 
 soal 4 hanya dapat kami kerjakan sampai minute_log.sh karena kendala dalam penghitungan max, min dan avg dari setiap variable yang tersimpan pada file log yang sudah teroutput pada jam tersebut.
 ### Kendala dan revisi soal 4
@@ -381,4 +384,5 @@ Variable `minimum` `maximum` dan `average` di output ke file `metrics_agg_"$time
 
 Hasil aggregate_minute_to_hourly_log.sh :
 
-![alt text](image-1.png)
+![image](https://github.com/ch0clat/Sisop-1-2024-MH-IT18/assets/128571877/5f1e2b57-643a-4a8c-aea8-0cdd627f9ffd)
+
