@@ -183,6 +183,65 @@ Hasil Soal 1 :
 
 ![image](https://github.com/Karisuta7/Sisop-1-2024-MH-IT18/assets/151893499/77befbdd-9f73-4e81-9187-525bc1f4b4df)
 
+## soal 2
+   
+### Register.sh
+```sh
+#!/bin/bash
+validate_password() {
+local password="$1"
+if [ "${#password}" -lt 9 ]; then echo "Password harus lebih dari 8 karakter"
+return 1 fi if ! [[ "$password" =~ [A-Z] && "$password" =~ [a-z] && "$password" =~ [0-9] ]]; then
+echo "Password harus mengandung setidaknya satu huruf besar, satu huruf kecil, dan satu angka"
+return 1 fi return 0}
+```
+Disini fungsi validate_password menerima password yang akan divalidasi, lalu akan disimpan menggunakan local password="$1". Selanjutnya, akan dilakukan pengecekan apakah panjang password kurang dari 9 karakter atau tidak. ${#password} digunakan untuk mendapatkan panjang string password. Jika panjang password kurang dari 9, maka fungsi akan mencetak pesan "Password harus lebih dari 8 karakter". selanjutnya, kita dilakukan pengecekan apakah password mengandung setidaknya satu huruf besar, satu huruf kecil, dan satu angka. [[ "$password" =~ [A-Z] ]] akan mengevaluasi ke true jika string password mengandung setidaknya satu huruf besar. [[ "$password" =~ [a-z] ]] akan mengevaluasi ke true jika string password mengandung setidaknya satu huruf kecil. [[ "$password" =~ [0-9] ]] akan mengevaluasi ke true jika string password mengandung setidaknya satu angka. Jika salah satu dari kondisi tersebut tidak terpenuhi, maka fungsi akan mencetak pesan "Password harus mengandung setidaknya satu huruf besar, satu huruf kecil, dan satu angka"
+
+```sh
+# Direktori untuk menyimpan file
+USERS_DIR="users"
+mkdir -p "$USERS_DIR"
+```
+Disini variabel USERS_DIR akan terdefinisi dengan nilai "users" untuk menyimpan lokasi direktori yang akan dibuat. Selanjutnya Kita menggunakan perintah mkdir -p "$USERS_DIR" untuk membuat direktori dengan nama "users". Digunakan -p supaya direktori akan dibuat meskipun direktori induk belum ada. Jadi, jika direktori "users" tidak ada, program akan membuatnya.
+```sh
+read -p "Masukkan email: " email
+read -p "Masukkan username: " username
+read -p "Masukkan pertanyaan keamanan: " question
+read -p "Masukkan jawaban: " answer
+read -s -p "Masukkan password: " password
+echo
+```
+Disini akan dimeminta untuk mendaftarkan akun baru. -s pada read digunakan supaya password tidak akan ditampilkan saat kita mengetikkannya.
+
+```sh
+if ! validate_password "$password"; then
+echo "Registrasi gagal: Password tidak valid"
+echo "[$(date +'%d/%m/%y %H:%M:%S')] [REGISTER FAILED] Registration failed for user with email $email" >> "$USERS_DIR/auth.log"
+exit 1 fi
+```
+Setelah kita memasukkan password, program akan memanggil fungsi validate_password. Jika password tidak valid maka program akan mencetak pesan "Registrasi gagal: Password tidak valid" dan mencatat log kegagalan registrasi ke file auth.log di direktori users/.
+
+```sh
+password_hashed=$(echo -n "$password" | base64)
+is_admin="false"
+if [[ "$email" == *"admin"* ]]; then
+is_admin="true" fi
+```
+Jika password valid, password akan dienskripsi menggunakan Base64 dan menyimpannya dalam password_hashed. Kemudian, akan diperiksa apakah email yang dimasukkan mengandung kata "admin". Jika ya, maka variabel is_admin akan diatur ke "true", yang berarti pengguna adalah admin. Jika tidak, variabel is_admin akan diatur ke "false", yang berarti pengguna adalah pengguna biasa.
+
+```sh
+echo "Email: $email" >> "$USERS_DIR/users.txt"
+echo "Username: $username" >> "$USERS_DIR/users.txt"
+echo "Pertanyaan Keamanan: $question" >> "$USERS_DIR/users.txt"
+echo "Jawaban: $answer" >> "$USERS_DIR/users.txt"
+echo "Password: $password_hashed" >> "$USERS_DIR/users.txt"
+echo "IsAdmin: $is_admin" >> "$USERS_DIR/users.txt"
+echo "" >> "$USERS_DIR/users.txt"
+echo "Registrasi berhasil!"
+echo "[$(date +'%d/%m/%y %H:%M:%S')] [REGISTER SUCCESS] User [$username] registered successfully" >> "$USERS_DIR/auth.log"
+```
+Setelah itu, data email, username, pertanyaan keamanan, jawaban, password terenkripsi, dan status admin dikirim ke file users.txt di direktori users/. Terakhir, akan keluar pesan "Registrasi berhasil!" dan mencatat log registrasi sukses ke file auth.log di direktori users/.
+
 ## Soal 3
 
 ### Awal.sh
