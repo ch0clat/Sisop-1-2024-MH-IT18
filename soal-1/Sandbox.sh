@@ -40,7 +40,7 @@ awk -F ',' 'NR > 1 && ($20 < lowest_profit || lowest_profit == "") {lowest_profi
 # END {print segment, profit}': command ini akan mengeprint hasil segment dengan lowest profir setelah melakukan command sebelum bagian 'END'.
 
 
-echo TOP 3 CATEGORIES WITH HIGHEST PROFIT
+echo TOP 3 CATEGORIES WITH HIGHEST PROFIT - No 1C
 awk -F ',' 'NR > 1 {profits[$14] += $20} END {PROCINFO["sorted_in"] = "@val_num_desc"; for (category in profits) {if (length(top_categories) < 3 || profits[category] >= profits[top_categories[3]]) {top_categories[category] = profits[category]; if (length(top_categories) > 3) { min_category = top_categories[1]; for (top in top_categories) if (profits[top_categories[top]] < profits[min_category]) min_category = top_categories[top]; delete top_categories[min_category]; }}} for (category in top_categories) print category, profits[category]}' Sandbox.csv
 
 # Agak mirip seperti sebelumnya pada beberapa command, kecuali pada:
